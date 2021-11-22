@@ -81,7 +81,8 @@ export default {
       startingDay: 0,
       rowsCount: 0,
       differentYear: false,
-      filteredEvents: []
+      filteredEvents: [],
+      likeMonth: []
     }
   },
   methods: {
@@ -104,11 +105,11 @@ export default {
       this.startingDay = moment({year: this.year, month: this.month}).day()
       if(this.startingDay === 0) this.startingDay = 7
 
-      // let firstLine = 7 - this.startingDay + 1
-      // let exceptFirstLine = this.countOfDays - firstLine
-      // let fullLines = Math.floor(exceptFirstLine / 7)
-      // let restLine = exceptFirstLine % 7 > 0 ? 1 : 0
-      // this.rowsCount =  1 + fullLines + restLine
+      let firstLine = 7 - this.startingDay + 1
+      let exceptFirstLine = this.countOfDays - firstLine
+      let fullLines = Math.floor(exceptFirstLine / 7)
+      let restLine = exceptFirstLine % 7 > 0 ? 1 : 0
+      this.rowsCount =  1 + fullLines + restLine
 
       this.differentYear = !(moment().year() === this.year)
 
@@ -124,7 +125,24 @@ export default {
           })
         }
       })
-      console.log(this.filteredEvents)
+
+      this.likeMonth = []
+      let firstPart = [], secondPart = [], thirdPart = []
+
+      let prevDaysCount = this.startingDay - 1
+      let prevMonth = moment({year: this.year, month: this.month}).subtract(1, 'months')
+      let countOfDaysPrevMonth = prevMonth.daysInMonth()
+      for(let i = countOfDaysPrevMonth - prevDaysCount + 1; i <= countOfDaysPrevMonth; i++) firstPart.push(i)
+
+      for(let i = 0; i < this.countOfDays; i++) secondPart.push(i + 1)
+
+      let nextDaysCount = this.rowsCount * 7 - (firstPart.length + secondPart.length)
+      for(let i = 1; i <= nextDaysCount; i++ ) thirdPart.push(i)
+
+      if(firstPart.length > 0) this.likeMonth = [...firstPart]
+      this.likeMonth = [...this.likeMonth, ...secondPart]
+      if(thirdPart.length > 0) this.likeMonth = [...this.likeMonth, ...thirdPart]
+
     }
   },
   created() {
