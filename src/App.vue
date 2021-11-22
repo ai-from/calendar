@@ -22,7 +22,8 @@ export default {
         {id: 5, name: '22:50 - Почитать книгу', date: '27.11.2021', type: 'red'},
         {id: 6, name: '12:50 - Проверить почту', date: '12.11.2021', type: 'orange'},
         {id: 7, name: '21:00 - Спорт', date: '20.10.2021', type: 'orange'},
-        {id: 8, name: '10:00 - Покодить', date: '14.12.2021', type: 'orange'}
+        {id: 8, name: '10:00 - Покодить', date: '14.12.2021', type: 'orange'},
+        {id: 9, name: '7:33 - Поехать в Москву', date: '31.12.2021', type: 'green'}
       ]
     }
   }
